@@ -83,6 +83,12 @@ TEST(operatorOut, expectedOutput) {
     std::cout << a;
     EXPECT_EQ(testing::internal::GetCapturedStdout(), "0.32+98i");
 
+    a.real = -0.32;
+    a.imaginary = -98;
+    testing::internal::CaptureStdout();
+    std::cout << a;
+    EXPECT_EQ(testing::internal::GetCapturedStdout(), "-0.32-98i");
+
     a.real = 0;
     a.imaginary = 16.3;
     testing::internal::CaptureStdout();
@@ -112,12 +118,6 @@ TEST(operatorOut, expectedOutput) {
     testing::internal::CaptureStdout();
     std::cout << a;
     EXPECT_EQ(testing::internal::GetCapturedStdout(), "0");
-
-    a.real = -72.09;
-    a.imaginary = -87.3;
-    testing::internal::CaptureStdout();
-    std::cout << a;
-    EXPECT_EQ(testing::internal::GetCapturedStdout(), "-72.09-87.3i");
 
     a.real = 1;
     a.imaginary = 1;
