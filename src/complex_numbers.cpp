@@ -2,6 +2,15 @@
 #include "complex_numbers.h"
 
 
+ComplexNumberException::ComplexNumberException(std::string error) {
+    this->error = std::move(error);
+}
+
+const char* ComplexNumberException::what() const noexcept {
+    return this->error.c_str();
+}
+
+
 ComplexNumber operator+(const ComplexNumber& a, const ComplexNumber& b) {
     ComplexNumber sum;
     sum.real = a.real + b.real;
@@ -37,7 +46,7 @@ void operator*=(ComplexNumber& a, const ComplexNumber& b) {
 
 ComplexNumber operator/(const ComplexNumber& a, const ComplexNumber& b) {
     if (b.real == 0 && b.imaginary == 0) {
-        throw DivisionByZeroException("A complex number can't be divided by a zero");
+        throw ComplexNumberException("A complex number can't be divided by zero");
     } else {
         ComplexNumber quotient;
         double denominator = b.real * b.real + b.imaginary * b.imaginary;
@@ -65,7 +74,7 @@ std::ostream& operator<<(std::ostream& out, const ComplexNumber& a) {
             if (a.imaginary == 1) {
                 out << 'i';
             } else if (a.imaginary == -1) {
-                out << a.imaginary << "-i";
+                out << "-i";
             } else {
                 out << a.imaginary << 'i';
             }
